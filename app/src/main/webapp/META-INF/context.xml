@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>    
+    <Resource name="jdbc/myAppDB"
+              auth="Container"
+              type="javax.sql.DataSource"
+              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+
+              driverClassName="org.mariadb.jdbc.Driver"
+
+            url="jdbc:mariadb:failover://192.168.200.123:3306/db1,192.168.200.123:3306/db2"
+
+              username="root"
+              password="openmaru"
+
+              maxActive="100"
+              maxIdle="30"
+              maxWait="10000"
+
+              testOnBorrow="true"
+              validationQuery="SELECT 1"
+              validationInterval="30000"
+    />
+</Context>
