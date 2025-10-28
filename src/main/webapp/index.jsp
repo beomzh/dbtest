@@ -12,22 +12,24 @@
         Statement stmt = null;
         ResultSet rs = null;
         String serverHostname = "N/A";
+        String schemaName = "N/A"; 
         String errorMessage = "";
 
         try {
             Context initContext = new InitialContext();
             Context envContext  = (Context)initContext.lookup("java:comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/myAppDB"); // web.xml의 res-ref-name
+            DataSource ds = (DataSource)envContext.lookup("jdbc/myAppDB"); 
             conn = ds.getConnection();
 
             // @@hostname: 현재 연결된 MariaDB 서버의 호스트명을 반환
+            // DATABASE(): 현재 연결된 스키마(DB)명을 반환
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT @@hostname AS 'ServerName'"); 
+            rs = stmt.executeQuery("SELECT @@hostname AS 'ServerName', DATABASE() AS 'SchemaName'"); 
 
             if (rs.next()) {
                 serverHostname = rs.getString("ServerName");
+                schemaName = rs.getString("SchemaName"); 
             }
-
         } catch (Exception e) {
             errorMessage = e.getMessage();
             e.printStackTrace(response.getWriter());
@@ -41,6 +43,8 @@
     <% if (errorMessage.isEmpty()) { %>
         <h2>연결 성공! ✅</h2>
         <p><strong>현재 연결된 DB 서버:</strong> <b style="color: blue; font-size: 1.2em;"><%= serverHostname %></b></p>
+        <p><strong>현재 연결된 스키마:</strong> <b style="color: green; font-size: 1.2em;"><%= schemaName %></b></p>
+        
         <p>
             <b>테스트 방법:</b><br>
             1. 현재 연결된 DB 서버(<b><%= serverHostname %></b>)의 MariaDB 서비스를 중지시킵니다.<br>

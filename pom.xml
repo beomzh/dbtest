@@ -26,6 +26,14 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <!--  https://mariadb.com/docs/connectors/mariadb-connector-j/installing-mariadb-connectorj -->
+    <!-- wget https://dlm.mariadb.com/4234077/Connectors/java/connector-java-3.3.4/mariadb-java-client-3.3.4.jar -->
+    <dependency> 
+      <groupId>org.mariadb.jdbc</groupId>
+      <artifactId>mariadb-java-client</artifactId>
+      <version>3.3.4</version>
+    </dependency>
+
   </dependencies>
 
   <build>

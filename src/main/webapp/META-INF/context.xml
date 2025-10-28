@@ -7,7 +7,7 @@
 
               driverClassName="org.mariadb.jdbc.Driver"
 
-            url="jdbc:mariadb:failover://192.168.200.123:3306/db1,192.168.200.123:3306/db2"
+              url="jdbc:mariadb://192.168.200.123:3307,192.168.200.123:3306/db1?failover=true"
 
               username="root"
               password="openmaru"
